@@ -1,4 +1,9 @@
+const clien = require("./src/parse_site");
+const url = require("./src/config");
 
+const startParse = new clien.ParseClien(url.jirum);
+
+startParse.getJsonFromBody();
 // var i = 1;                     //  set your counter to 1
 
 // function myLoop () {           //  create a loop function
