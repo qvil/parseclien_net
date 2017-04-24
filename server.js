@@ -9,6 +9,6 @@ request("http://www.clien.net/cs2/bbs/board.php?bo_table=jirum", function (err, 
   
   articles.each((i, elem) => {
     console.log(htmlBody(elem).children(".post_subject").text());
-    // return false;
+    return false;
   })
 });
