@@ -2,7 +2,7 @@
   "name": "node-web-scrape",
   "version": "0.0.1",
   "description": "Scrape le web.",
-  "main": "server.js",
+  "main": "main.js",
   "author": "Scotch",
   "dependencies": {
     "cheerio": "latest",
