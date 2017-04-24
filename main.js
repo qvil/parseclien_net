@@ -3,17 +3,23 @@ const url = require("./src/config");
 
 const startParse = new clien.ParseClien(url.jirum);
 
-startParse.getJsonFromBody();
-// var i = 1;                     //  set your counter to 1
+var i = 1;                     //  set your counter to 1
 
-// function myLoop () {           //  create a loop function
-//    setTimeout(function () {    //  call a 3s setTimeout when the loop is called
-//       alert('hello');          //  your code here
-//       i++;                     //  increment the counter
-//       if (i < 10) {            //  if the counter < 10, call the loop function
-//          myLoop();             //  ..  again which will trigger another 
-//       }                        //  ..  setTimeout()
-//    }, 3000)
-// }
+function myLoop () {           //  create a loop function
+   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+      startParse.getJsonFromBody();          //  your code here
+      if (startParse.articles != undefined){
+        // console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
+        console.log('[KangLOG]  : There is data');
+      }
+      else {
+        console.log('[KangLOG] undefined : ');
+      }
+      i++;                     //  increment the counter
+      if (i < 10) {            //  if the counter < 10, call the loop function
+         myLoop();             //  ..  again which will trigger another 
+      }                        //  ..  setTimeout()
+   }, 3000)
+}
 
-// myLoop();                      //  start the loop
+myLoop();                      //  start the loop

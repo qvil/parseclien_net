@@ -11,28 +11,26 @@ exports.ParseClien = class ParseClien {
     // this.getJsonFromBody = this.getJsonFromBody.bind();
   }
 
-  get url() {
-    return this._url;
-  }
-
-  set url(url) {
-    this._url = url;
+  get articles() {
+    return this._articles;
   }
 
   getJsonFromBody() {
     var articles;
+    var finalData;
     request(this._url, (err, body) => {
       let htmlBody = cheerio.load(err || body);
       articles = htmlBody(this._tag);
-      articles.each((i, elem) => {
-        var pageData = {};
-        pageData["id"] = htmlBody(elem).children().html();
-        pageData["post_category"] = htmlBody(elem).children(".post_category").text();
-        pageData["post_subject"] = htmlBody(elem).children(".post_subject").text();
-        pageData["post_name"] = htmlBody(elem).children(".post_name").text();
-
-        console.log('[KangLOG] pageData : ' + JSON.stringify(pageData));
+      this._articles = articles.map((i, elem) => {
+        var pageData = {
+          id: htmlBody(elem).children().html(),
+          post_category: htmlBody(elem).children(".post_category").text(),
+          post_subject: htmlBody(elem).children(".post_subject").text(),
+          post_name: htmlBody(elem).children(".post_name").text()
+        };        
+        return pageData;
       })
-    })
+      // console.log('[KangLOG] pageData : ' + JSON.stringify(this._articles.get()));
+    })    
   }
 }
