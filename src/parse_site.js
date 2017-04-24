@@ -20,10 +20,11 @@ exports.ParseClien = class ParseClien {
   }
 
   getJsonFromBody() {
+    var articles;
     request(this._url, (err, body) => {
       let htmlBody = cheerio.load(err || body);
-      this._articles = htmlBody(this._tag);
-      this._articles.each((i, elem) => {
+      articles = htmlBody(this._tag);
+      articles.each((i, elem) => {
         var pageData = {};
         pageData["id"] = htmlBody(elem).children().html();
         pageData["post_category"] = htmlBody(elem).children(".post_category").text();
