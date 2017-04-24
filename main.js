@@ -22,7 +22,7 @@ var infiniteLoop = () => {    //  call a 3s setTimeout when the loop is called
 }
 
 function myLoop() {           //  create a loop function
-  setTimeout(infiniteLoop, 3000)
+  setTimeout(infiniteLoop, 1000)
 }
 
 myLoop();                      //  start the loop
