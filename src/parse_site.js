@@ -5,7 +5,7 @@ exports.ParseClien = class ParseClien {
   constructor(url) {
     this._url = url;
     this._tag = "tr.mytr";
-    this.state._articles = null;
+    this._articles = null;
 
     // this.getHtmlBody = this.getHtmlBody.bind();
     // this.getJsonFromBody = this.getJsonFromBody.bind();
@@ -22,8 +22,7 @@ exports.ParseClien = class ParseClien {
   getJsonFromBody() {
     request(this._url, (err, body) => {
       let htmlBody = cheerio.load(err || body);
-      // this._articles = htmlBody(this._tag);
-      this.setState(htmlBody(this._tag));
+      this._articles = htmlBody(this._tag);
       this._articles.each((i, elem) => {
         var pageData = {};
         pageData["id"] = htmlBody(elem).children().html();
