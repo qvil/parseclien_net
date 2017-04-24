@@ -3,7 +3,7 @@ const config = require("./src/config");
 const TelegramBot = require('node-telegram-bot-api');
 
 const bot = new TelegramBot(config.token, {polling: true});
-const startParse = new clien.ParseClien(config.jirum);
+const startParse = new clien.ParseClien(config.park);
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
   // 'msg' is the received Message from Telegram
@@ -38,17 +38,17 @@ var infiniteLoop = () => {
   startParse.getJsonFromBody();
 
   if (startParse.articles != undefined) {
-    console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
-    return false;
+    console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));    
+    console.log("=====================================");
   }
   else {
     console.log('[KangLOG] undefined : ');
-  }  
-  getClienData();
+  }
+  getClienData();  
 }
 
 function getClienData() {
-  setTimeout(infiniteLoop, 1000)
+  setTimeout(infiniteLoop, 3000)
 }
 
 getClienData();

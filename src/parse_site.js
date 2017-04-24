@@ -12,6 +12,10 @@ exports.ParseClien = class ParseClien {
     return this._articles;
   }
 
+  set url(url){
+    this._url = url;
+  }
+
   getJsonFromBody() {
     var articles;
     var finalData;
@@ -19,13 +23,19 @@ exports.ParseClien = class ParseClien {
       let htmlBody = cheerio.load(err || body);
       articles = htmlBody(this._tag);
       this._articles = articles.map((i, elem) => {
-        var pageData = {
+        let articleId = htmlBody(elem).children().html();
+        if (articleId > 54920894){
+          var pageData = {
           id: htmlBody(elem).children().html(),
           post_category: htmlBody(elem).children(".post_category").text(),
           post_subject: htmlBody(elem).children(".post_subject").text(),
           post_name: htmlBody(elem).children(".post_name").text()
-        };        
-        return pageData;
+          };        
+          return pageData;
+        }
+        else {
+          // console.log('[KangLOG] less : ');
+        }        
       })
     })    
   }
