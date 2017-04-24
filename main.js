@@ -5,8 +5,9 @@ const startParse = new clien.ParseClien(url.jirum);
 
 var i = 1;                     //  set your counter to 1
 
+startParse.getJsonFromBody();          //  your code here
+
 var infiniteLoop = () => {    //  call a 3s setTimeout when the loop is called
-  startParse.getJsonFromBody();          //  your code here
   if (startParse.articles != undefined) {
     console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
     return false;
