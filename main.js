@@ -1,29 +1,25 @@
 const clien = require("./src/parse_site");
-const url = require("./src/config");
+const config = require("./src/config");
+var i = 1;
 
-const startParse = new clien.ParseClien(url.jirum);
-
-var i = 1;                     //  set your counter to 1
-
-startParse.getJsonFromBody();          //  your code here
-
-var infiniteLoop = () => {    //  call a 3s setTimeout when the loop is called
+var infiniteLoop = () => {
   if (startParse.articles != undefined) {
     console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
     return false;
-    // console.log('[KangLOG]  : There is data');
   }
   else {
     console.log('[KangLOG] undefined : ');
   }
-  i++;                     //  increment the counter
-  if (i < 10) {            //  if the counter < 10, call the loop function
-    myLoop();             //  ..  again which will trigger another 
-  }                        //  ..  setTimeout()
+  i++;
+  if (i < 10) {
+    myLoop();
+  }
 }
 
-function myLoop() {           //  create a loop function
+function myLoop() {
   setTimeout(infiniteLoop, 1000)
 }
 
-myLoop();                      //  start the loop
+const startParse = new clien.ParseClien(config.jirum);
+startParse.getJsonFromBody();
+myLoop();

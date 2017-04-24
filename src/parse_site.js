@@ -6,9 +6,6 @@ exports.ParseClien = class ParseClien {
     this._url = url;
     this._tag = "tr.mytr";
     this._articles = null;
-
-    // this.getHtmlBody = this.getHtmlBody.bind();
-    // this.getJsonFromBody = this.getJsonFromBody.bind();
   }
 
   get articles() {
@@ -30,7 +27,6 @@ exports.ParseClien = class ParseClien {
         };        
         return pageData;
       })
-      // console.log('[KangLOG] pageData : ' + JSON.stringify(this._articles.get()));
     })    
   }
 }
