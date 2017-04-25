@@ -1,11 +1,12 @@
 const config = require("./config");
 const TelegramBot = require('node-telegram-bot-api');
+const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
   constructor() {
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
-    this._opts = {
+    this._replyOpts = {
       reply_to_message_id: 0,
       reply_markup: {
         resize_keyboard: true,
@@ -15,9 +16,12 @@ exports.BotHandler = class BotHandler {
       }
     };
 
-    this._help = `help : 이 설명을 보여줌
-    filter <filter name> : 게시판에서 해당 <filter name> 이 들어가는 글만 알림
-    dashboard <park|jirum> : 해당 게시판으로 이동 (park-모두의 공원, jirum-알구게)`
+    this._help = "/help : 이 설명을 보여줌\n\n" +
+    "/filter <filter name> : 게시판에서 해당 <filter name> 이 들어가는 글만 알림\n\n" +
+    "/dashboard <park | jirum> : 해당 게시판으로 이동 (park-모두의 공원, jirum-알구게)";
+
+    this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
+
   }
 
   get msgType() {
@@ -30,13 +34,31 @@ exports.BotHandler = class BotHandler {
 
   _commandFilter(msg) {
     const chatId = msg.chat.id;
-    switch (msg.text) {
-      case 'help':
+    const arr = msg.text.split(" ");
+    switch (arr[0]) {
+      case '/help':
       this._bot.sendMessage(chatId, this._help);
         return true;
-      case 'filter':
+      case '/filter':
+        if (arr.length < 2){
+          return false;
+        }
+        // Save the arguments to file (ex. ini)
+        // console.log('[KangLOG] arr[1] : ' + arr[1]);
         return true;
-      case 'dashboard':
+      case '/dashboard':
+        if (arr.length < 2){
+          return false;
+        }
+
+        if (arr[1] == "park" || arr[1] == "jirum"){
+
+        }        
+        else {
+          var opts = Object.assign({}, this._replyOpts);
+          opts['reply_to_message_id'] = msg.message_id;
+          this._bot.sendMessage(chatId, this._cmds, opts);
+        }
         return true;
     }
     return false;

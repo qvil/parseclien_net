@@ -9,8 +9,8 @@ var infiniteLoop = () => {
   startParse.getJsonFromBody();
 
   if (startParse.articles != undefined) {
-    console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));    
-    console.log("=====================================");
+    // console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));    
+    // console.log("=====================================");
   }
   else {
     console.log('[KangLOG] undefined : ');
