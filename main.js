@@ -1,25 +1,9 @@
 const clien = require("./src/parse_site");
 const config = require("./src/config");
-const TelegramBot = require('node-telegram-bot-api');
+const bothandler = require("./src/bothandler");
 
-const bot = new TelegramBot(config.token, {polling: true});
 const startParse = new clien.ParseClien(config.park);
-
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-  const opts = {
-        reply_to_message_id: msg.message_id,
-        reply_markup: {
-            resize_keyboard: true,
-            one_time_keyboard: true,
-            remove_keyboard: true,
-            // keyboard: [["uno :+1:"],["uno \ud83d\udc4d", "due"],["uno", "due","tre"],["uno", "due","tre","quattro"]]
-        }
-    };
-
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, msg.text, opts);
-});
+const bot = new bothandler.BotHandler();
 
 var infiniteLoop = () => {
   startParse.getJsonFromBody();
@@ -38,4 +22,5 @@ function getClienData() {
   setTimeout(infiniteLoop, 3000)
 }
 
+bot.listenEvent();
 getClienData();
