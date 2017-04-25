@@ -19,10 +19,11 @@ exports.ParseClien = class ParseClien {
   getJsonFromBody() {
     var articles;
     var finalData;
-    request(this._url, (err, body) => {
+    request(this._url, (err, body) => { // Begin request
       let htmlBody = cheerio.load(err || body);
       articles = htmlBody(this._tag);
-      this._articles = articles.map((i, elem) => {
+
+      this._articles = articles.map((i, elem) => { // Begin map
         let articleId = htmlBody(elem).children().html();
         if (articleId > 54920894){
           var pageData = {
@@ -35,8 +36,8 @@ exports.ParseClien = class ParseClien {
         }
         else {
           // console.log('[KangLOG] less : ');
-        }        
-      })
-    })    
+        }
+      }) // End map
+    }) // End request
   }
 }
