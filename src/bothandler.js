@@ -3,7 +3,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
-  constructor() {
+  constructor(dashboard) {
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
     this._replyOpts = {
@@ -22,6 +22,7 @@ exports.BotHandler = class BotHandler {
 
     this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
 
+    this._dashboard = dashboard;
   }
 
   get msgType() {
@@ -52,8 +53,8 @@ exports.BotHandler = class BotHandler {
         }
 
         if (arr[1] == "park" || arr[1] == "jirum"){
-
-        }        
+          this._dashboard.url = (arr[1] == "park") ? config.park : config.jirum;          
+        }
         else {
           var opts = Object.assign({}, this._replyOpts);
           opts['reply_to_message_id'] = msg.message_id;
