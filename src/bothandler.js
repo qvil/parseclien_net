@@ -32,7 +32,10 @@ exports.BotHandler = class BotHandler {
   set msgType(msgType) {
     this._msgType = msgType;
   }
-
+/*
+* @return (true or false): If the received text is one of command, 
+* then returns true. Otherwise, returns false.
+*/
   _commandFilter(msg) {
     const chatId = msg.chat.id;
     const arr = msg.text.split(" ");
@@ -40,6 +43,7 @@ exports.BotHandler = class BotHandler {
       case '/help':
       this._bot.sendMessage(chatId, this._help);
         return true;
+
       case '/filter':
         if (arr.length < 2){
           return false;
@@ -47,6 +51,7 @@ exports.BotHandler = class BotHandler {
         // Save the arguments to file (ex. ini)
         // console.log('[KangLOG] arr[1] : ' + arr[1]);
         return true;
+
       case '/dashboard':
         if (arr.length < 2){
           return false;
@@ -61,6 +66,9 @@ exports.BotHandler = class BotHandler {
           this._bot.sendMessage(chatId, this._cmds, opts);
         }
         return true;
+
+      default:
+        return false;
     }
     return false;
   }

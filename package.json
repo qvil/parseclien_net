@@ -4,6 +4,9 @@
   "description": "Scrape le web.",
   "main": "main.js",
   "author": "Scotch",
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
     "cheerio": "latest",
     "express": "latest",

@@ -27,10 +27,10 @@ exports.ParseClien = class ParseClien {
         let articleId = htmlBody(elem).children().html();
         if (articleId > 54920894){
           var pageData = {
-          id: htmlBody(elem).children().html(),
-          post_category: htmlBody(elem).children(".post_category").text(),
-          post_subject: htmlBody(elem).children(".post_subject").text(),
-          post_name: htmlBody(elem).children(".post_name").text()
+            id: htmlBody(elem).children().html(),
+            post_category: htmlBody(elem).children(".post_category").text(),
+            post_subject: htmlBody(elem).children(".post_subject").text(),
+            post_name: htmlBody(elem).children(".post_name").text()
           };        
           return pageData;
         }
