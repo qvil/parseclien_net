@@ -16,9 +16,10 @@ exports.BotHandler = class BotHandler {
       }
     };
 
-    this._help = "/help : 이 설명을 보여줌\n\n" +
-    "/filter <filter name> : 게시판에서 해당 <filter name> 이 들어가는 글만 알림\n\n" +
-    "/dashboard <park | jirum> : 해당 게시판으로 이동 (park-모두의 공원, jirum-알구게)";
+    this._help = "/help : 이 설명을 보여줌.\n\n" +
+    "/filter <filter name> : 게시판에서 해당. <filter name> 이 들어가는 글만 알림\n\n" +
+    "/dashboard <park | jirum> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)\n\n" +
+    "/resetfilter : 저장한 필터를 초기화합니다.";
 
     this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
 
@@ -44,6 +45,10 @@ exports.BotHandler = class BotHandler {
     switch (arr[0]) {
       case '/help':
       this._bot.sendMessage(chatId, this._help);
+        return true;
+
+      case '/resetfilter':
+        delete this._ini.filePointer.filterlist;
         return true;
 
       case '/filter':

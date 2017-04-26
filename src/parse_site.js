@@ -46,7 +46,7 @@ exports.ParseClien = class ParseClien {
         }
 
         
-        if (articleId > tempId) {          
+        if (articleId > 0) {          
           if (i == 0) { // Save only the latest post ID.
             if (this._url == "park") {
               this._ini.filePointer.parklastid = articleId;
@@ -62,8 +62,11 @@ exports.ParseClien = class ParseClien {
             id: htmlBody(elem).children().html(),
             post_category: htmlBody(elem).children(".post_category").text(),
             post_subject: htmlBody(elem).children(".post_subject").text(),
-            post_name: htmlBody(elem).children(".post_name").text()
+            post_name: htmlBody(elem).children(".post_name").text(),
+            image: htmlBody(htmlBody(elem).children(".post_name").html()).attr("src"),
           };
+
+          // console.log('[KangLOG] pageData : ' + JSON.stringify(pageData));
           return pageData;
         }
       }) // End map
