@@ -3,7 +3,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
-  constructor(dashboard) {
+  constructor(dashboard, ini) {
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
     this._replyOpts = {
@@ -23,6 +23,8 @@ exports.BotHandler = class BotHandler {
     this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
 
     this._dashboard = dashboard;
+
+    this._ini = ini;
   }
 
   get msgType() {
@@ -48,8 +50,14 @@ exports.BotHandler = class BotHandler {
         if (arr.length < 2){
           return false;
         }
-        // Save the arguments to file (ex. ini)
-        // console.log('[KangLOG] arr[1] : ' + arr[1]);
+
+        var filterList = "";
+        for(var i = 1; i < arr.length; i++){
+           filterList += arr[i];
+           filterList += ",";
+        }
+        this._ini.filePointer.filterlist = filterList;
+        this._ini.writeConfigToFile(this._ini.filePointer);
         return true;
 
       case '/dashboard':
@@ -58,7 +66,7 @@ exports.BotHandler = class BotHandler {
         }
 
         if (arr[1] == "park" || arr[1] == "jirum"){
-          this._dashboard.url = (arr[1] == "park") ? config.park : config.jirum;          
+          this._dashboard.url = arr[1];
         }
         else {
           var opts = Object.assign({}, this._replyOpts);

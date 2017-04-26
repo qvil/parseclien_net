@@ -5,8 +5,8 @@ const ini = require("./src/rwinifile");
 
 const iniAccess = new ini.ReadWriteIni();
 
-const startParse = new clien.ParseClien(config.park, iniAccess);
-const bot = new bothandler.BotHandler(startParse);
+const startParse = new clien.ParseClien("park", iniAccess);
+const bot = new bothandler.BotHandler(startParse, iniAccess);
 
 var infiniteLoop = () => {
   startParse.getJsonFromBody();
