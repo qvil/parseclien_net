@@ -1,3 +1,8 @@
+/*
+* Author : Youngki
+* Email : yellowgg2@gmail.com
+*/
+
 const config = require("./config");
 const TelegramBot = require('node-telegram-bot-api');
 const { Record } = require('immutable');
@@ -103,7 +108,8 @@ exports.BotHandler = class BotHandler {
         return;
       }
       this._chatId = msg.chat.id;
-      // this._bot.sendMessage(chatId, msg.text, opts);
+      // console.log('[KangLOG] this._chatId : ' + this._chatId);
+      // this._bot.sendMessage(chatId, msg.text, opts); // To reply to a specific user
       this._bot.sendMessage(this._chatId, msg.text);
     });
   }

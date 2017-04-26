@@ -1,3 +1,7 @@
+/*
+* Author : Youngki
+* Email : yellowgg2@gmail.com
+*/
 const request = require("tinyreq");
 const cheerio = require("cheerio");
 const config = require("./config");

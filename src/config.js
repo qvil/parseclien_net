@@ -1,3 +1,7 @@
+/*
+* Author : Youngki
+* Email : yellowgg2@gmail.com
+*/
 exports.dashboard = {
   jirum: "http://www.clien.net/cs2/bbs/board.php?bo_table=jirum",
   park: "http://www.clien.net/cs2/bbs/board.php?bo_table=park",

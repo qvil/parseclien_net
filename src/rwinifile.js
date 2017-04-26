@@ -1,3 +1,7 @@
+/*
+* Author : Youngki
+* Email : yellowgg2@gmail.com
+*/
 var ini = require('ini');
 var fs = require('fs');
 

@@ -1,3 +1,7 @@
+/*
+* Author : Youngki
+* Email : yellowgg2@gmail.com
+*/
 const clien = require("./src/parse_site");
 const config = require("./src/config");
 const bothandler = require("./src/bothandler");
@@ -18,7 +22,6 @@ var infiniteLoop = () => {
     bot.sendMessageFromObj(startParse.articles.get());
   }
   else { // No article has been scrapped.
-    console.log('[KangLOG] undefined : ');
   }
   getClienData();
 }
