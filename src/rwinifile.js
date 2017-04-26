@@ -1,10 +1,11 @@
-var ini = require('node-ini');
+var ini = require('ini');
+var fs = require('fs');
 
 exports.ReadWriteIni = class ReadWriteIni{
   constructor(iniFile = "./config.ini", encode = "utf-8"){
     this._iniFile = iniFile;
     this._encode = encode;
-    this._iniFilePointer = ini.parseSync(iniFile);
+    this._iniFilePointer = ini.parse(fs.readFileSync(iniFile, encode))
   }
 
   get iniFilePath(){
@@ -25,5 +26,9 @@ exports.ReadWriteIni = class ReadWriteIni{
 
   get filePointer(){
     return this._iniFilePointer;
+  }
+
+  writeConfigToFile(config){
+    fs.writeFileSync(this._iniFile, ini.stringify(config));
   }
 }

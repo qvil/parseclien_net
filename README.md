@@ -19,3 +19,6 @@
 [Bot Father](https://core.telegram.org/bots)
 
 # 3. Bot 개발을 위한 Configuration
+- npm 명령을 위해 nodejs를 설치
+- github에서 소스를 다운로드 받고 또는 git clone을 하고 해당 directory로 이동 후 `npm install` 실행
+- npm start 또는 node main.js를 실행

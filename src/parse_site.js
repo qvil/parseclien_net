@@ -2,10 +2,11 @@ const request = require("tinyreq");
 const cheerio = require("cheerio");
 
 exports.ParseClien = class ParseClien {
-  constructor(url) {
+  constructor(url, ini) {
     this._url = url;
     this._tag = "tr.mytr";
     this._articles = null;
+    this._ini = ini;
   }
 
   get articles() {
@@ -25,18 +26,28 @@ exports.ParseClien = class ParseClien {
 
       this._articles = articles.map((i, elem) => { // Begin map
         let articleId = htmlBody(elem).children().html();
-        if (articleId > 54920894){
+        let tempId = 0;
+        let idNeedToBeSaved = 0;
+
+        if (this._ini.filePointer.lastid != undefined){
+          tempId = this._ini.filePointer.lastid;         
+        }
+
+        if (articleId > tempId){
+          if (i == 0){ // Save only the latest post ID.
+            this._ini.filePointer.lastid = articleId;
+            this._ini.writeConfigToFile(this._ini.filePointer);
+            console.log('[KangLOG] articleId : ' + articleId);
+          }
+
           var pageData = {
             id: htmlBody(elem).children().html(),
             post_category: htmlBody(elem).children(".post_category").text(),
             post_subject: htmlBody(elem).children(".post_subject").text(),
             post_name: htmlBody(elem).children(".post_name").text()
-          };        
+          };
           return pageData;
-        }
-        else {
-          // console.log('[KangLOG] less : ');
-        }
+        }        
       }) // End map
     }) // End request
   }
