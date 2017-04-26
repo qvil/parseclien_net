@@ -16,9 +16,6 @@ var infiniteLoop = () => {
   startParse.getJsonFromBody();
 
   if (startParse.articles != undefined) {
-    // console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
-    // console.log("=====================================" + startParse._url);
-
     bot.sendMessageFromObj(startParse.articles.get());
   }
   else { // No article has been scrapped.

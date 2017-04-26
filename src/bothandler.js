@@ -35,7 +35,7 @@ exports.BotHandler = class BotHandler {
 
     this._ini = ini;
 
-    this._chatId = 22442558;
+    this._chatId = config.chatId;
   }
 
   get msgType() {
