@@ -22,7 +22,9 @@ exports.BotHandler = class BotHandler {
     };
 
     this._help = "/help : 이 설명을 보여줌.\n\n" +
-      "/filter <filter name> : 게시판에서 해당. <filter name> 이 들어가는 글만 알림\n\n" +
+      "/filter <filter name> : 게시판에서 해당. <filter name> 이 들어가는 글만 알림." +
+      "띄어쓰기를 사용하여 여러개의 필터를 걸 수 있음. (ex. /filter 문재인 대통령)" +
+      "이렇게 검색하면 문재인과 대통령이 들어간 게시글은 모두 알려줌.\n\n" +
       "/dashboard <park | jirum> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)\n\n" +
       "/config : 현재 설정을 보여줍니다.\n\n" +
       "/resetfilter : 저장한 필터를 초기화합니다.";
