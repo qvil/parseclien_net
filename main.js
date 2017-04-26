@@ -5,18 +5,17 @@ const ini = require("./src/rwinifile");
 
 const iniAccess = new ini.ReadWriteIni();
 
-const startParse = new clien.ParseClien("park", iniAccess);
+const startParse = new clien.ParseClien("jirum", iniAccess);
 const bot = new bothandler.BotHandler(startParse, iniAccess);
 
 var infiniteLoop = () => {
   startParse.getJsonFromBody();
 
   if (startParse.articles != undefined) {
-    // console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));    
+    // console.log('[KangLOG] pageData : ' + JSON.stringify(startParse.articles.get()));
     // console.log("=====================================" + startParse._url);
 
-    var articles = startParse.articles.get();
-
+    bot.sendMessageFromObj(startParse.articles.get());
   }
   else { // No article has been scrapped.
     console.log('[KangLOG] undefined : ');

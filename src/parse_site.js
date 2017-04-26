@@ -7,7 +7,7 @@ exports.ParseClien = class ParseClien {
     this._url = url;
     this._tag = "tr.mytr";
     this._articles = null;
-    this._ini = ini;
+    this._ini = ini;    
   }
 
   get articles() {
@@ -16,6 +16,10 @@ exports.ParseClien = class ParseClien {
 
   set url(url) {
     this._url = url;
+  }
+
+  get url(){
+    return this._url;
   }
 
   getJsonFromBody() {
@@ -32,21 +36,20 @@ exports.ParseClien = class ParseClien {
       else if (this._url == "jirum") {
         lastIdOfEachDashboard = parseInt(this._ini.filePointer.jirumlastid, 10);
       }
-      else {}
+      else { }
 
-      articles = htmlBody(this._tag);
+      articles = htmlBody(this._tag);     
 
       this._articles = articles.map((i, elem) => { // Begin map
         let articleId = htmlBody(elem).children().html();
         let tempId = 0;
         let idNeedToBeSaved = 0;
-        
+
         if (isNaN(lastIdOfEachDashboard) == false) {
           tempId = lastIdOfEachDashboard;
         }
 
-        
-        if (articleId > 0) {          
+        if (articleId > tempId) {
           if (i == 0) { // Save only the latest post ID.
             if (this._url == "park") {
               this._ini.filePointer.parklastid = articleId;
@@ -54,7 +57,7 @@ exports.ParseClien = class ParseClien {
             else if (this._url == "jirum") {
               this._ini.filePointer.jirumlastid = articleId;
             }
-            else {}
+            else { }
             this._ini.writeConfigToFile(this._ini.filePointer);
           }
 
@@ -65,9 +68,18 @@ exports.ParseClien = class ParseClien {
             post_name: htmlBody(elem).children(".post_name").text(),
             image: htmlBody(htmlBody(elem).children(".post_name").html()).attr("src"),
           };
-
-          // console.log('[KangLOG] pageData : ' + JSON.stringify(pageData));
-          return pageData;
+          
+          if (this._ini.filePointer.filterlist == undefined || this._ini.filePointer.filterlist == "") {
+            // console.log('[KangLOG] NO FILTER : ' + JSON.stringify(pageData));
+            return pageData;            
+          }
+          else {
+            var filterList = new RegExp(this._ini.filePointer.filterlist);
+            if (pageData["post_subject"].search(filterList) != -1) {
+              // console.log('[KangLOG] pageData : ' + JSON.stringify(pageData));
+              return pageData;
+            }
+          }
         }
       }) // End map
     }) // End request
