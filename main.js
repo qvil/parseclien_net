@@ -27,9 +27,9 @@ var infiniteLoop = () => {
 }
 
 function getClienData() {
-  setTimeout(infiniteLoop, 3000)
+  setTimeout(infiniteLoop, 30000)
 }
 console.log('Initialize clien bot.....');
 bot.listenEvent();
-console.log('Start getting Clien data at every 3 sec....');
+console.log('Start getting Clien data at every 30 sec....');
 getClienData();
