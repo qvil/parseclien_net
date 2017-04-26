@@ -10,7 +10,7 @@
 ## 1. Clien.net 용 텔레그램 봇
 Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, 알뜰 구매 게시판)`를 파싱하여 새로운 게시글을 telegram으로 전달하는 봇.
 
-> 저 또한 nodejs를 처음 공부하면서 작성한 코드이므로 코드가 살짝(?) 지저분하다고 생각이 드실수도....
+> 저 또한 nodejs를 처음 공부하면서 작성한 코드이므로 코드에 대한 태클은 사양하도록 하겠습니다 \\('' )/
 
 해당 코드는 임의로 수정하여 배포하셔도 됩니다.
 
@@ -29,8 +29,8 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 - npm start 또는 node main.js를 실행
 
 ## 4. 명령어
-- /help : 이 설명을 보여줌.
-- /filter <filter name> : 게시판에서 해당. <filter name> 이 들어가는 글만 알림
-- /dashboard <park | jirum> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)
-- /config : 현재 설정을 보여줍니다
-- /resetfilter : 저장한 필터를 초기화합니다.
+- **/help** : 이 설명을 보여줌.
+- **/filter** `[filter name]` : 게시판에서 해당. `[filter name]` 이 들어가는 글만 알림
+- **/dashboard** `[park | jirum]` : 해당 게시판으로 이동. `(park-모두의 공원, jirum-알구게)`
+- **/config** : 현재 설정을 보여줍니다
+- **/resetfilter** : 저장한 필터를 초기화합니다.
