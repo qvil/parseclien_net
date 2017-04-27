@@ -8,6 +8,7 @@ const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
   constructor(userInfo) {
+    this._defaulturl = config.listOfDashBoard[0];
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
     this._replyOpts = {
@@ -24,7 +25,7 @@ exports.BotHandler = class BotHandler {
       "/filter <filter name> : 게시판에서 <filter name> 이 들어가는 글만 알림.\n" +
       "띄어쓰기를 사용하여 여러개의 필터를 걸 수 있음.\n(ex. /filter 문재인 대통령)" +
       "이렇게 검색하면 문재인과 대통령이 들어간 게시글은 모두 알려줌.\n\n" +
-      "/dashboard <park | jirum> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)\n\n" +
+      `/dashboard <${config.listOfDashBoard}> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)\n\n` +
       "/config : 현재 설정을 보여줍니다.\n\n" +
       "/resetfilter : 저장한 필터를 초기화합니다.";
 
@@ -43,7 +44,7 @@ exports.BotHandler = class BotHandler {
   * @return (true or false): If the received text is one of command, 
   * then returns true. Otherwise, returns false.
   */
-  _commandFilter(msg) {
+  _commandFilter(msg) {            
     const chatId = msg.chat.id;
     const arr = msg.text.split(" ");
     switch (arr[0]) {
@@ -52,9 +53,9 @@ exports.BotHandler = class BotHandler {
         if (obj == undefined) {
           var userInitInfo = {
             filterlist: "",
-            dashboardurl: "jirum",
+            dashboardurl: this._defaulturl, // jirum
           };
-          this.userInfo.writeUserInfo(chatId, userInitInfo);
+          this._userInfo.writeUserInfo(chatId, userInitInfo);
         }
 
         return true;
@@ -98,10 +99,13 @@ exports.BotHandler = class BotHandler {
           return false;
         }
 
-        if (arr[1] == "park" || arr[1] == "jirum") {
-          var obj = this._userInfo.readUserInfo(chatId);
-          obj["dashboardurl"] = arr[1];
-          this.userInfo.writeUserInfo(chatId, obj);
+        var idx = config.dashboard.indexOf(arr[1]);
+        
+        if (idx != -1) {
+          var readData = this._userInfo.readUserInfo(chatId);
+          console.log('[KangLOG]  : ' + JSON.stringify(readData));
+          readData["dashboardurl"] = arr[1];
+          this._userInfo.writeUserInfo(chatId, readData);
         }
         else {
           var opts = Object.assign({}, this._replyOpts);
@@ -132,7 +136,9 @@ exports.BotHandler = class BotHandler {
   // key : chatid
   // pageData : article info
   sendMessageFromObj(key, userInfo, pageData) {
-    var text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${arr[i]["id"]}`;
-    this._bot.sendMessage(key, text);
+    if (key != "common") {
+      var text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${pageData["id"]}`;
+      this._bot.sendMessage(key, text);
+    }
   }
 }

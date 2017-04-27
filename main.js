@@ -5,23 +5,21 @@
 const clien = require("./src/parse_site");
 const config = require("./src/config");
 const bothandler = require("./src/bothandler");
-const userinfo = require("./src/userinf");
-const bot = new bothandler.BotHandler(userinfo);
-const startParse = new clien.ParseClien(bot, userinfo);
+const userinfo = require("./src/userinfo");
+
+const uinfo = new userinfo.UserInfo();
+const bot = new bothandler.BotHandler(uinfo);
+const startParse = new clien.ParseClien(bot, uinfo);
+
+// console.log('[KangLOG]  : ' + config.listOfDashBoard);
 
 var infiniteLoop = () => {
   startParse.getJsonFromBody();
-
-  if (startParse.articles != undefined) {
-    bot.sendMessageFromObj(startParse.articles.get());
-  }
-  else { // No article has been scrapped.
-  }
   getClienData();
 }
 
 function getClienData() {
-  setTimeout(infiniteLoop, 30000)
+  setTimeout(infiniteLoop, 3000)
 }
 console.log('Initialize clien bot.....');
 bot.listenEvent();

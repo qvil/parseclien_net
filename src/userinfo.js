@@ -1,42 +1,54 @@
 var jf = require('jsonfile');
+const config = require("./config");
 
-exports.userinfo = class UserInfo{
-  constructor(jsonFile = "./config.ini"){
+exports.UserInfo = class UserInfo {
+  constructor(jsonFile = 'config.json'){
     this._jsonFile = jsonFile;
     // jsonfile.readFileSync(file);
   }
 
   readUserInfo(userId){
-    var obj = jf.readFileSync(this._jsonFile);
-
+    var obj = {};
+    try{
+      obj = jf.readFileSync(this._jsonFile);
+    }
+    catch(exception){
+      console.log('[KangLOG] Cannot read the file');
+      return undefined;
+    }
     if (userId == undefined){
       return obj;
-    }    
+    }
     return obj[userId];
   }
 
   readCommonInfo(){
-    var readData = jf.readFileSync(this._jsonFile);
+    var readData = {};
+    try{
+      readData = jf.readFileSync(this._jsonFile);
+    }
+    catch(exception){
+      console.log('[KangLOG] Cannot read the file');      
+    }
 
     if (readData["common"] == undefined){
-      var commonObj = {
-        park: 0,
-        jirum: 0,
-        iphone: 0,
-        nas: 0,
-      };
-
-      readData["common"] = commonObj;
-      jsonfile.writeFileSync(this._jsonFile, readData);
-      return commonObj;
+      readData["common"] = config.commonObj;
+      console.log('[KangLOG] write common data : ' + JSON.stringify(readData));
+      jf.writeFileSync(this._jsonFile, readData);      
     }
     return readData["common"];
   }
 
   writeUserInfo(userId, obj){
-    var readData = jf.readFileSync(this._jsonFile);
-    readData[userId] = obj;
-    jsonfile.writeFileSync(this._jsonFile, readData);
+    var readData = {};    
+    try{
+      readData = jf.readFileSync(this._jsonFile);
+    }
+    catch(exception){
+      console.log('[KangLOG] Cannot read the file');
+    }
+    readData[userId] = obj;    
+    jf.writeFileSync(this._jsonFile, readData);    
   }
 
   getRegisteredChatIDs(){

@@ -17,7 +17,9 @@ exports.ParseClien = class ParseClien {
     var articles;
     var finalData;
 
-    for (var url in config.listOfDashBoard) {
+    for (var i = 0; i < config.listOfDashBoard.length; i++) {
+      let url = config.listOfDashBoard[i];
+      
       request(config.dashboard[url], (err, body) => { // Begin request
         let htmlBody = cheerio.load(err || body);
         let lastIdOfEachDashboard = NaN;
@@ -48,11 +50,14 @@ exports.ParseClien = class ParseClien {
             };
 
             var userInfoList = this._userInfo.readUserInfo(undefined);
-
+            console.log('[KangLOG] NO FILTER : ' + url + " ## " + JSON.stringify(pageData));
             for (var k in userInfoList) { // send messages to all users
               if (userInfoList.hasOwnProperty(k)) {
+                if (userInfoList[k]["dashboardurl"] != url){
+                  continue;
+                }
                 if (userInfoList[k]["filterlist"] == undefined || userInfoList[k]["filterlist"] == "") {
-                  // console.log('[KangLOG] NO FILTER : ' + JSON.stringify(pageData));
+                  // console.log('[KangLOG] NO FILTER : ' + JSON.stringify(userInfoList));                  
                   this._bot.sendMessageFromObj(k, userInfoList[k], pageData);
                 }
                 else {
