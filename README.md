@@ -2,7 +2,7 @@
 
 - [1. Clien.net 용 텔레그램 봇](#1-cliennet-용-텔레그램-봇)
 - [2. 참고 사이트](#2-참고-사이트)
-- [3. Bot 개발을 위한 Configuration](#3-bot-개발을-위한-configuration)
+- [3. Bot 실행 방법](#3-bot-실행-방법)
 - [4. 명령어](#4-명령어)
 
 <!-- /TOC -->
@@ -23,7 +23,7 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 
 [Bot Father](https://core.telegram.org/bots)
 
-## 3. Bot 개발을 위한 Configuration
+## 3. Bot 실행 방법
 - npm 명령을 위해 nodejs를 설치
 - github에서 소스를 다운로드 받고 또는 git clone을 하고 해당 directory로 이동 후 `npm install` 실행
 - npm start 또는 node main.js를 실행

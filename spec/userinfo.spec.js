@@ -10,7 +10,7 @@ let data = {
   "common": { "jirum": "674923", "park": "55044322", "iphone": "3743359", "nas": "48120" }
 };
 
-describe("Telegram Bot Test", () => {
+describe("UserInfo Class test", () => {
   it("readUserInfo function test", (done) => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.json");
 
@@ -30,6 +30,7 @@ describe("Telegram Bot Test", () => {
     expect(ui.readUserInfo("3333")).toBe(undefined);
     expect(ui.readUserInfo(1111)).toBe(undefined);
     expect(ui.readUserInfo("")).toBe(undefined);
+    fs.unlink(__base + "spec/config.spec.without.file.json");
     done();
   });
 
@@ -45,6 +46,14 @@ describe("Telegram Bot Test", () => {
 
     expect(ui.readCommonInfo()).toEqual(config.commonObj);
     fs.unlink(__base + "spec/config.spec.without.file.json");
+    done();
+  })
+
+  it("getRegisteredChatIDs function test", (done) => {
+    const ui = new userinfo.UserInfo(__base + "spec/config.spec.json");
+    const uiWithoutFile = new userinfo.UserInfo(__base + "spec/config.spec.without.file.json");
+    expect(ui.getRegisteredChatIDs()).toEqual(["1111", "2222"]);    
+    expect(uiWithoutFile.getRegisteredChatIDs()).toEqual([]);
     done();
   })
 });

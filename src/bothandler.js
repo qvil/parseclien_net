@@ -7,9 +7,9 @@ const TelegramBot = require('node-telegram-bot-api');
 const userinfo = require(__base + "src/userinfo");
 
 exports.BotHandler = class BotHandler {
-  constructor(userInfo = new userinfo.UserInfo()) {
-    // this._config = config;
-    this._bot = new TelegramBot(config.token, { polling: true });
+  constructor(userInfo = new userinfo.UserInfo(), 
+              bot = new TelegramBot(config.token, { polling: true })) {    
+    this._bot = bot;
     this._msgType = "message";
     this._replyOpts = {
       reply_to_message_id: 0,

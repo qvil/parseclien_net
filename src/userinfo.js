@@ -52,9 +52,16 @@ exports.UserInfo = class UserInfo {
   }
 
   getRegisteredChatIDs(){
-    var readData = jf.readFileSync(this._jsonFile);
-    var keyArray = Object.keys(readData);
+    var readData = {};
 
+    try{
+      readData = jf.readFileSync(this._jsonFile);
+    }
+    catch(exception){
+      console.log('[KangLOG] Cannot read the file');
+    }
+
+    var keyArray = Object.keys(readData);
     return keyArray.filter((chatId) => chatId != "common");
   }
 }
