@@ -1,6 +1,8 @@
 /*
 * Author : Youngki
 * Email : yellowgg2@gmail.com
+* If you would like to add more url to be watching,
+* you have to modify this file expectedly.
 */
 const listOfBoards = ["jirum", "park", "iphone", "nas"];
 
@@ -21,5 +23,6 @@ exports.commonObj = {
   [listOfBoards[3]]: 0,
 };
 
+// If you have your own bot token, you need to set below variables.
 exports.token = '175007468:AAHnFnaribWo1hKEXzZ-CFZF5oYo9vIl8fQ'; // raven bot
 exports.chatId = 22442558;

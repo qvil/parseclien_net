@@ -26,7 +26,7 @@ exports.BotHandler = class BotHandler {
       "띄어쓰기를 사용하여 여러개의 필터를 걸 수 있음.\n(ex. /filter 문재인 대통령)" +
       "이렇게 검색하면 문재인과 대통령이 들어간 게시글은 모두 알려줌.\n\n" +
       `/dashboard <${config.listOfDashBoard}> : 해당 게시판으로 이동. (park-모두의 공원, jirum-알구게)\n\n` +
-      "/config : 현재 설정을 보여줍니다.\n\n" +
+      "/showconfig : 현재 설정을 보여줍니다.\n\n" +
       "/resetfilter : 저장한 필터를 초기화합니다.";
 
     this._cmds = `<${config.listOfDashBoard}>중 하나를 입력해주세요.`;
@@ -71,7 +71,7 @@ exports.BotHandler = class BotHandler {
         this._userInfo.writeUserInfo(chatId, readData);        
         return true;
 
-      case '/config':
+      case '/showconfig':
         return true;
 
       case '/filter':

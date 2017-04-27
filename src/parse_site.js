@@ -14,8 +14,8 @@ exports.ParseClien = class ParseClien {
   }
 
   getJsonFromBody() {
-    var articles;
-    var finalData;
+    let articles;
+    let finalData;
 
     for (var i = 0; i < config.listOfDashBoard.length; i++) {
       let url = config.listOfDashBoard[i];
@@ -23,7 +23,7 @@ exports.ParseClien = class ParseClien {
       request(config.dashboard[url], (err, body) => { // Begin request
         let htmlBody = cheerio.load(err || body);
         let lastIdOfEachDashboard = NaN;
-        var lastId = this._userInfo.readCommonInfo();
+        let lastId = this._userInfo.readCommonInfo();
 
         lastIdOfEachDashboard = lastId[url];
 
@@ -41,7 +41,7 @@ exports.ParseClien = class ParseClien {
               this._userInfo.writeUserInfo("common", lastId);
             }
 
-            var pageData = {
+            let pageData = {
               id: htmlBody(elem).children().html(),
               post_category: htmlBody(elem).children(".post_category").text(),
               post_subject: htmlBody(elem).children(".post_subject").text(),
@@ -49,7 +49,7 @@ exports.ParseClien = class ParseClien {
               image: htmlBody(htmlBody(elem).children(".post_name").html()).attr("src"),
             };
 
-            var userInfoList = this._userInfo.readUserInfo(undefined);
+            let userInfoList = this._userInfo.readUserInfo(undefined);
             console.log('[KangLOG] NO FILTER : ' + url + " ## " + JSON.stringify(pageData));
             for (var k in userInfoList) { // send messages to all users
               if (userInfoList.hasOwnProperty(k)) {
@@ -61,7 +61,7 @@ exports.ParseClien = class ParseClien {
                   this._bot.sendMessageFromObj(k, userInfoList[k], pageData);
                 }
                 else {
-                  var filterList = new RegExp(userInfoList[k]["filterlist"]);
+                  let filterList = new RegExp(userInfoList[k]["filterlist"]);
                   if (pageData["post_subject"].search(filterList) != -1) {
                     // console.log('[KangLOG] pageData : ' + JSON.stringify(pageData));
                     this._bot.sendMessageFromObj(k, pageData);

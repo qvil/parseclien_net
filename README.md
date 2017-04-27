@@ -33,9 +33,6 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 - **/filter** `[filter name]` : 게시판에서 해당. `[filter name]` 이 들어가는 글만 알림
   - 띄어쓰기를 사용하여 여러개의 필터를 걸 수 있음. (ex. /filter 문재인 대통령)
   - 이렇게 검색하면 문재인과 대통령이 들어간 게시글은 모두 알려줌.
-- **/dashboard** `[park | jirum]` : 해당 게시판으로 이동. `(park-모두의 공원, jirum-알구게)`
-- **/config** : 현재 설정을 보여줍니다
+- **/dashboard** `<게시판 이름>` : 해당 게시판으로 이동. `help 명령으로 확인`
+- **/showconfig** : 현재 설정을 보여줍니다
 - **/resetfilter** : 저장한 필터를 초기화합니다.
-
-## 내일해야 할 일
-https://www.npmjs.com/package/jsonfile 참고하여 ini를 json으로 변경하기
