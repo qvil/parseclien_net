@@ -8,7 +8,7 @@ const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
   constructor(userInfo) {
-    this._defaulturl = config.listOfDashBoard[0];
+    // this._config = config;
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
     this._replyOpts = {
@@ -29,7 +29,7 @@ exports.BotHandler = class BotHandler {
       "/config : 현재 설정을 보여줍니다.\n\n" +
       "/resetfilter : 저장한 필터를 초기화합니다.";
 
-    this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
+    this._cmds = `<${config.listOfDashBoard}>중 하나를 입력해주세요.`;
     this._userInfo = userInfo;
   }
 
@@ -44,16 +44,17 @@ exports.BotHandler = class BotHandler {
   * @return (true or false): If the received text is one of command, 
   * then returns true. Otherwise, returns false.
   */
-  _commandFilter(msg) {            
+  _commandFilter(msg) {
+    let readData = {};
     const chatId = msg.chat.id;
     const arr = msg.text.split(" ");
     switch (arr[0]) {
       case '/start':
-        var obj = this._userInfo.readUserInfo(chatId);
-        if (obj == undefined) {
-          var userInitInfo = {
+        readData = this._userInfo.readUserInfo(chatId);
+        if (readData == undefined) {
+          let userInitInfo = {
             filterlist: "",
-            dashboardurl: this._defaulturl, // jirum
+            dashboardurl: config.listOfDashBoard[0], // jirum
           };
           this._userInfo.writeUserInfo(chatId, userInitInfo);
         }
@@ -65,15 +66,12 @@ exports.BotHandler = class BotHandler {
         return true;
 
       case '/resetfilter':
-        var obj = this._userInfo.readUserInfo(chatId);
-        obj["filterlist"] = "";
-        this.userInfo.writeUserInfo(chatId, obj);
+        readData = this._userInfo.readUserInfo(chatId);
+        readData["filterlist"] = "";
+        this._userInfo.writeUserInfo(chatId, readData);        
         return true;
 
       case '/config':
-        var obj = this._userInfo.readUserInfo(chatId);
-        var config = JSON.stringify(obj);
-        this._bot.sendMessage(chatId, config);
         return true;
 
       case '/filter':
@@ -81,7 +79,7 @@ exports.BotHandler = class BotHandler {
           return false;
         }
 
-        var filterList = "";
+        let filterList = "";
         for (var i = 1; i < arr.length; i++) {
           filterList += arr[i];
           if (i != arr.length - 1) {
@@ -89,26 +87,25 @@ exports.BotHandler = class BotHandler {
           }
         }
 
-        var obj = this._userInfo.readUserInfo(chatId);
-        obj["filterlist"] = filterList;
-        this.userInfo.writeUserInfo(chatId, obj);
+        readData = this._userInfo.readUserInfo(chatId);
+        readData["filterlist"] = filterList;
+        this._userInfo.writeUserInfo(chatId, readData);
         return true;
 
       case '/dashboard':
         if (arr.length < 2) {
           return false;
         }
-
-        var idx = config.dashboard.indexOf(arr[1]);
         
+        let idx = config.listOfDashBoard.indexOf(arr[1]);
+
         if (idx != -1) {
-          var readData = this._userInfo.readUserInfo(chatId);
-          console.log('[KangLOG]  : ' + JSON.stringify(readData));
+          readData = this._userInfo.readUserInfo(chatId);
           readData["dashboardurl"] = arr[1];
           this._userInfo.writeUserInfo(chatId, readData);
         }
         else {
-          var opts = Object.assign({}, this._replyOpts);
+          let opts = Object.assign({}, this._replyOpts);
           opts['reply_to_message_id'] = msg.message_id;
           this._bot.sendMessage(chatId, this._cmds, opts);
         }
@@ -124,6 +121,7 @@ exports.BotHandler = class BotHandler {
   listenEvent() {
     this._bot.on(this._msgType, (msg) => {
       if (this._commandFilter(msg) == true) {
+        this.sendCurrentInfo(msg.chat.id);
         return;
       }
       // this._chatId = msg.chat.id;
@@ -137,8 +135,14 @@ exports.BotHandler = class BotHandler {
   // pageData : article info
   sendMessageFromObj(key, userInfo, pageData) {
     if (key != "common") {
-      var text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${pageData["id"]}`;
+      let text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${pageData["id"]}`;
       this._bot.sendMessage(key, text);
     }
+  }
+
+  sendCurrentInfo(chatId) {
+    let obj = this._userInfo.readUserInfo(chatId);
+    let localconf = JSON.stringify(obj);
+    this._bot.sendMessage(chatId, localconf);
   }
 }

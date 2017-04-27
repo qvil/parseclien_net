@@ -19,7 +19,7 @@ var infiniteLoop = () => {
 }
 
 function getClienData() {
-  setTimeout(infiniteLoop, 3000)
+  setTimeout(infiniteLoop, 30000)
 }
 console.log('Initialize clien bot.....');
 bot.listenEvent();

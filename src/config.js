@@ -2,7 +2,6 @@
 * Author : Youngki
 * Email : yellowgg2@gmail.com
 */
-
 const listOfBoards = ["jirum", "park", "iphone", "nas"];
 
 exports.listOfDashBoard = listOfBoards;
