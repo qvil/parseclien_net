@@ -10,5 +10,7 @@ exports.dashboard = {
   main: "http://www.clien.net/"
 };
 
+exports.listOfDashBoard = ["jirum", "park", "iphone", "nas"];
+
 exports.token = '175007468:AAHnFnaribWo1hKEXzZ-CFZF5oYo9vIl8fQ'; // raven bot
 exports.chatId = 22442558;

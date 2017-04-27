@@ -2,13 +2,12 @@
 * Author : Youngki
 * Email : yellowgg2@gmail.com
 */
-
 const config = require("./config");
 const TelegramBot = require('node-telegram-bot-api');
 const { Record } = require('immutable');
 
 exports.BotHandler = class BotHandler {
-  constructor(dashboard, ini) {
+  constructor(userInfo) {
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
     this._replyOpts = {
@@ -30,12 +29,7 @@ exports.BotHandler = class BotHandler {
       "/resetfilter : 저장한 필터를 초기화합니다.";
 
     this._cmds = "/dashboard park 또는 jirum을 입력해주세요.";
-
-    this._dashboard = dashboard;
-
-    this._ini = ini;
-
-    this._chatId = config.chatId;
+    this._userInfo = userInfo;
   }
 
   get msgType() {
@@ -53,17 +47,32 @@ exports.BotHandler = class BotHandler {
     const chatId = msg.chat.id;
     const arr = msg.text.split(" ");
     switch (arr[0]) {
+      case '/start':
+        var obj = this._userInfo.readUserInfo(chatId);
+        if (obj == undefined) {
+          var userInitInfo = {
+            filterlist: "",
+            dashboardurl: "jirum",
+          };
+          this.userInfo.writeUserInfo(chatId, userInitInfo);
+        }
+
+        return true;
+
       case '/help':
         this._bot.sendMessage(chatId, this._help);
         return true;
 
       case '/resetfilter':
-        delete this._ini.filePointer.filterlist;
+        var obj = this._userInfo.readUserInfo(chatId);
+        obj["filterlist"] = "";
+        this.userInfo.writeUserInfo(chatId, obj);
         return true;
-      
+
       case '/config':
-        var config = JSON.stringify(this._ini.filePointer);        
-        this._bot.sendMessage(chatId, `현재 게시판 : ${this._dashboard.url} ` + config);
+        var obj = this._userInfo.readUserInfo(chatId);
+        var config = JSON.stringify(obj);
+        this._bot.sendMessage(chatId, config);
         return true;
 
       case '/filter':
@@ -78,8 +87,10 @@ exports.BotHandler = class BotHandler {
             filterList += "|";
           }
         }
-        this._ini.filePointer.filterlist = filterList;
-        this._ini.writeConfigToFile(this._ini.filePointer);
+
+        var obj = this._userInfo.readUserInfo(chatId);
+        obj["filterlist"] = filterList;
+        this.userInfo.writeUserInfo(chatId, obj);
         return true;
 
       case '/dashboard':
@@ -88,7 +99,9 @@ exports.BotHandler = class BotHandler {
         }
 
         if (arr[1] == "park" || arr[1] == "jirum") {
-          this._dashboard.url = arr[1];
+          var obj = this._userInfo.readUserInfo(chatId);
+          obj["dashboardurl"] = arr[1];
+          this.userInfo.writeUserInfo(chatId, obj);
         }
         else {
           var opts = Object.assign({}, this._replyOpts);
@@ -109,17 +122,17 @@ exports.BotHandler = class BotHandler {
       if (this._commandFilter(msg) == true) {
         return;
       }
-      this._chatId = msg.chat.id;
+      // this._chatId = msg.chat.id;
       // console.log('[KangLOG] this._chatId : ' + this._chatId);
       // this._bot.sendMessage(chatId, msg.text, opts); // To reply to a specific user
-      this._bot.sendMessage(this._chatId, msg.text);
+      // this._bot.sendMessage(this._chatId, msg.text);
     });
   }
 
-  sendMessageFromObj(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      var text = `${config.dashboard[this._dashboard.url]}&wr_id=${arr[i]["id"]}`;
-        this._bot.sendMessage(this._chatId, text);      
-    }
+  // key : chatid
+  // pageData : article info
+  sendMessageFromObj(key, userInfo, pageData) {
+    var text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${arr[i]["id"]}`;
+    this._bot.sendMessage(key, text);
   }
 }

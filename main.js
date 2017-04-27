@@ -5,12 +5,9 @@
 const clien = require("./src/parse_site");
 const config = require("./src/config");
 const bothandler = require("./src/bothandler");
-const ini = require("./src/rwinifile");
-
-const iniAccess = new ini.ReadWriteIni();
-
-const startParse = new clien.ParseClien("jirum", iniAccess);
-const bot = new bothandler.BotHandler(startParse, iniAccess);
+const userinfo = require("./src/userinf");
+const bot = new bothandler.BotHandler(userinfo);
+const startParse = new clien.ParseClien(bot, userinfo);
 
 var infiniteLoop = () => {
   startParse.getJsonFromBody();
