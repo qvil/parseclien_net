@@ -1,5 +1,5 @@
 var jf = require('jsonfile');
-const config = require("./config");
+const config = require(__base + "src/config");
 
 exports.UserInfo = class UserInfo {
   constructor(jsonFile = 'config.json'){

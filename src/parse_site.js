@@ -4,7 +4,7 @@
 */
 const request = require("tinyreq");
 const cheerio = require("cheerio");
-const config = require("./config");
+const config = require(__base + "src/config");
 
 exports.ParseClien = class ParseClien {
   constructor(bot, userInfo) {

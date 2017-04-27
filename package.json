@@ -5,7 +5,8 @@
   "main": "main.js",
   "author": "Scotch",
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "test": "./node_modules/.bin/jasmine-node spec"
   },
   "dependencies": {
     "cheerio": "latest",

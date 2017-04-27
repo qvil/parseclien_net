@@ -2,12 +2,12 @@
 * Author : Youngki
 * Email : yellowgg2@gmail.com
 */
-const config = require("./config");
+const config = require(__base + "src/config");
 const TelegramBot = require('node-telegram-bot-api');
-const { Record } = require('immutable');
+const userinfo = require(__base + "src/userinfo");
 
 exports.BotHandler = class BotHandler {
-  constructor(userInfo) {
+  constructor(userInfo = new userinfo.UserInfo()) {
     // this._config = config;
     this._bot = new TelegramBot(config.token, { polling: true });
     this._msgType = "message";
