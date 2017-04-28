@@ -1,3 +1,4 @@
+<a name=top />
 <!-- TOC -->
 
 - [1. Clien.net 용 텔레그램 봇](#1-cliennet-용-텔레그램-봇)
@@ -5,6 +6,7 @@
 - [3. Bot 실행 방법](#3-bot-실행-방법)
 - [4. 명령어](#4-명령어)
 - [5. 자신의 봇 및 게시판 추가](#5-자신의-봇-및-게시판-추가)
+- [주의 사항](#주의-사항)
 
 <!-- /TOC -->
 
@@ -24,10 +26,14 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 
 [Bot Father](https://core.telegram.org/bots)
 
+[Back to top](#top)
+
 ## 3. Bot 실행 방법
 - npm 명령을 위해 [nodejs](https://nodejs.org/ko/)를 설치 
 - github에서 소스를 다운로드 받고 또는 git clone을 하고 해당 directory로 이동 후 `npm install` 실행
 - npm start 또는 node main.js를 실행
+
+[Back to top](#top)
 
 ## 4. 명령어
 - **/help** : 이 설명을 보여줌.
@@ -37,6 +43,8 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 - **/dashboard** `<게시판 이름>` : 해당 게시판으로 이동. `help 명령으로 확인`
 - **/showconfig** : 현재 설정을 보여줍니다
 - **/resetfilter** : 저장한 필터를 초기화합니다.
+
+[Back to top](#top)
 
 ## 5. 자신의 봇 및 게시판 추가
 ```javascript
@@ -74,3 +82,10 @@ exports.chatId = '<기본으로 쓰여질 chat id를 여기에 입력>';
 - 새로운 봇 추가 방법
   - `exports.token`에 [Bot Father](https://core.telegram.org/bots)에서 생성한 Token을 입력
     - ex) exports.token = 'adfasdfjo29-03ur-3jfganvq2po34rr'
+
+[Back to top](#top)
+
+## 주의 사항
+> `exports.token`값은 현재 제가 사용하고 있는 봇 토큰입니다. 제가 사용하고 있는 동안에 이거 그대로 사용하시면 어떻게 될지 모르니 [Bot Father](https://core.telegram.org/bots)를 보시고 자신의 봇을 만들어서 토큰값을 직접 입력하셔서 사용하세요.
+
+[Back to top](#top)
