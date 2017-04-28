@@ -134,7 +134,7 @@ exports.BotHandler = class BotHandler {
   // key : chatid
   // pageData : article info
   sendMessageFromObj(key, userInfo, pageData) {
-    if (key != "common") {
+    if (key != "common" && userInfo != undefined) {
       let text = `${config.dashboard[userInfo["dashboardurl"]]}&wr_id=${pageData["id"]}`;
       this._bot.sendMessage(key, text);
     }

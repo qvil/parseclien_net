@@ -83,6 +83,10 @@ exports.chatId = '<기본으로 쓰여질 chat id를 여기에 입력>';
   - `exports.token`에 [Bot Father](https://core.telegram.org/bots)에서 생성한 Token을 입력
     - ex) exports.token = 'adfasdfjo29-03ur-3jfganvq2po34rr'
 
+- 최초실행 시
+  - 봇을 텔레그램에서 추가하신 후 /start 명령을 실행합니다.
+  - 명령을 실행 후 컴퓨터에서 봇을 실행하세요.
+
 [Back to top](#top)
 
 ## 주의 사항
