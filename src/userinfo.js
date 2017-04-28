@@ -13,7 +13,7 @@ exports.UserInfo = class UserInfo {
       obj = jf.readFileSync(this._jsonFile);
     }
     catch(exception){
-      console.log('[KangLOG] Cannot read the file');
+      // console.log('[KangLOG] Cannot read the file');
       return undefined;
     }
     if (userId == undefined){
@@ -28,12 +28,12 @@ exports.UserInfo = class UserInfo {
       readData = jf.readFileSync(this._jsonFile);
     }
     catch(exception){
-      console.log('[KangLOG] Cannot read the file');      
+      // console.log('[KangLOG] Cannot read the file');      
     }
 
     if (readData["common"] == undefined){
       readData["common"] = config.commonObj;
-      console.log('[KangLOG] write common data : ' + JSON.stringify(readData));
+      // console.log('[KangLOG] write common data : ' + JSON.stringify(readData));
       jf.writeFileSync(this._jsonFile, readData);      
     }
     return readData["common"];
@@ -45,7 +45,7 @@ exports.UserInfo = class UserInfo {
       readData = jf.readFileSync(this._jsonFile);
     }
     catch(exception){
-      console.log('[KangLOG] Cannot read the file');
+      // console.log('[KangLOG] Cannot read the file');
     }
     readData[userId] = obj;    
     jf.writeFileSync(this._jsonFile, readData);    
@@ -58,7 +58,7 @@ exports.UserInfo = class UserInfo {
       readData = jf.readFileSync(this._jsonFile);
     }
     catch(exception){
-      console.log('[KangLOG] Cannot read the file');
+      // console.log('[KangLOG] Cannot read the file');
     }
 
     var keyArray = Object.keys(readData);

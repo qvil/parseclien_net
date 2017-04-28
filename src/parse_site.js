@@ -49,14 +49,14 @@ exports.ParseClien = class ParseClien {
               image: htmlBody(htmlBody(elem).children(".post_name").html()).attr("src"),
             };
 
-            let userInfoList = this._userInfo.readUserInfo(undefined);
-            console.log('[KangLOG] NO FILTER : ' + url + " ## " + JSON.stringify(pageData));
+            let userInfoList = this._userInfo.readUserInfo(undefined); // get entire users by passing undefined
+            // console.log('[KangLOG] NO FILTER : ' + url + " ## " + JSON.stringify(pageData));
             for (var k in userInfoList) { // send messages to all users
               if (userInfoList.hasOwnProperty(k)) {
                 if (userInfoList[k]["dashboardurl"] != url){
                   continue;
                 }
-                if (userInfoList[k]["filterlist"] == undefined || userInfoList[k]["filterlist"] == "") {
+                if (userInfoList[k]["filterlist"] == undefined || userInfoList[k]["filterlist"] == "") { // Begin if
                   // console.log('[KangLOG] NO FILTER : ' + JSON.stringify(userInfoList));                  
                   this._bot.sendMessageFromObj(k, userInfoList[k], pageData);
                 }
@@ -67,9 +67,9 @@ exports.ParseClien = class ParseClien {
                     this._bot.sendMessageFromObj(k, pageData);
                   }
                 } // End if
-              }
-            }
-          }
+              } // End if
+            } // End For loop
+          } // End if
         }) // End Loop
       }) // End request
     } // End for loop

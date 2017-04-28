@@ -6,7 +6,7 @@
   "author": "Scotch",
   "scripts": {
     "start": "node main.js",
-    "test": "./node_modules/.bin/jasmine-node spec"
+    "test": "./node_modules/.bin/jasmine-node --verbose spec"
   },
   "dependencies": {
     "cheerio": "latest",

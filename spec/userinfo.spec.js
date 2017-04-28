@@ -11,7 +11,7 @@ let data = {
 };
 
 describe("UserInfo Class test", () => {
-  it("readUserInfo function test", (done) => {
+  it("readUserInfo function test", () => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.json");
 
     expect(ui.readUserInfo("1111")).toEqual(data["1111"]);
@@ -19,10 +19,9 @@ describe("UserInfo Class test", () => {
     expect(ui.readUserInfo("3333")).toBe(undefined);
     expect(ui.readUserInfo(1111)).toEqual(data["1111"]);
     expect(ui.readUserInfo("")).toEqual(undefined);
-    done();
   });
 
-  it("readUserInfo function test without file", (done) => {
+  it("readUserInfo function test without file", () => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.without.file.json");
 
     expect(ui.readUserInfo("1111")).toBe(undefined);
@@ -31,29 +30,25 @@ describe("UserInfo Class test", () => {
     expect(ui.readUserInfo(1111)).toBe(undefined);
     expect(ui.readUserInfo("")).toBe(undefined);
     fs.unlink(__base + "spec/config.spec.without.file.json");
-    done();
   });
 
-  it("readCommonInfo function test", (done) => {
+  it("readCommonInfo function test", () => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.json");
 
     expect(ui.readCommonInfo()).toEqual(data["common"]);
-    done();
   });
 
-  it("readCommonInfo function test without file", (done) => {
+  it("readCommonInfo function test without file", () => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.without.file.json");
 
     expect(ui.readCommonInfo()).toEqual(config.commonObj);
     fs.unlink(__base + "spec/config.spec.without.file.json");
-    done();
   })
 
-  it("getRegisteredChatIDs function test", (done) => {
+  it("getRegisteredChatIDs function test", () => {
     const ui = new userinfo.UserInfo(__base + "spec/config.spec.json");
     const uiWithoutFile = new userinfo.UserInfo(__base + "spec/config.spec.without.file.json");
     expect(ui.getRegisteredChatIDs()).toEqual(["1111", "2222"]);    
     expect(uiWithoutFile.getRegisteredChatIDs()).toEqual([]);
-    done();
   })
 });
