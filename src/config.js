@@ -25,4 +25,3 @@ exports.commonObj = {
 
 // If you have your own bot token, you need to set below variables.
 exports.token = '175007468:AAHnFnaribWo1hKEXzZ-CFZF5oYo9vIl8fQ'; // raven bot
-exports.chatId = 22442558;

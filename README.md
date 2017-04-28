@@ -4,6 +4,7 @@
 - [2. 참고 사이트](#2-참고-사이트)
 - [3. Bot 실행 방법](#3-bot-실행-방법)
 - [4. 명령어](#4-명령어)
+- [5. 자신의 봇 및 게시판 추가](#5-자신의-봇-및-게시판-추가)
 
 <!-- /TOC -->
 
@@ -24,7 +25,7 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 [Bot Father](https://core.telegram.org/bots)
 
 ## 3. Bot 실행 방법
-- npm 명령을 위해 nodejs를 설치
+- npm 명령을 위해 [nodejs](https://nodejs.org/ko/)를 설치 
 - github에서 소스를 다운로드 받고 또는 git clone을 하고 해당 directory로 이동 후 `npm install` 실행
 - npm start 또는 node main.js를 실행
 
@@ -36,3 +37,40 @@ Clien.net의 로그인없이 접근이 가능한 페이지 `(모두의 공원, �
 - **/dashboard** `<게시판 이름>` : 해당 게시판으로 이동. `help 명령으로 확인`
 - **/showconfig** : 현재 설정을 보여줍니다
 - **/resetfilter** : 저장한 필터를 초기화합니다.
+
+## 5. 자신의 봇 및 게시판 추가
+```javascript
+// src/config.js
+const listOfBoards = ["jirum", "park", "iphone", "nas"];
+
+exports.listOfDashBoard = listOfBoards;
+
+exports.dashboard = {
+  [listOfBoards[0]]: "http://www.clien.net/cs2/bbs/board.php?bo_table=jirum",
+  [listOfBoards[1]]: "http://www.clien.net/cs2/bbs/board.php?bo_table=park",
+  [listOfBoards[2]]: "http://www.clien.net/cs2/bbs/board.php?bo_table=cm_iphonien",
+  [listOfBoards[3]]: "http://www.clien.net/cs2/bbs/board.php?bo_table=cm_nas",
+  main: "http://www.clien.net/"
+};
+
+exports.commonObj = {
+  [listOfBoards[0]]: 0,
+  [listOfBoards[1]]: 0,
+  [listOfBoards[2]]: 0,
+  [listOfBoards[3]]: 0,
+};
+
+// If you have your own bot token, you need to set below variables.
+exports.token = '<여기에 자신이 만든 봇의 토큰을 입력>';
+exports.chatId = '<기본으로 쓰여질 chat id를 여기에 입력>';
+```
+
+- 게시판을 추가방법
+  - `listOfBoards`에 대표이름을 하나 추가
+    - ex) const listOfBoards = ["jirum", "park", "iphone", "nas", "camping"];
+  - `exports.dashboard`와 `exports.commonObj`에 각각에 배열값을 추가
+    - ex) `[listOfBoards[4]]:` 이런 식으로....
+  
+- 새로운 봇 추가 방법
+  - `exports.token`에 [Bot Father](https://core.telegram.org/bots)에서 생성한 Token을 입력
+    - ex) exports.token = 'adfasdfjo29-03ur-3jfganvq2po34rr'
